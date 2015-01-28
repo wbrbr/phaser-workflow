@@ -1,0 +1,6 @@
+{
+    "srcDir": "src/",
+    "buildDir": "build/",
+    "assetsDir": "assets/",
+    "gameFile": "game.js"
+}
