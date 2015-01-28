@@ -40,6 +40,7 @@ Game.boot.prototype = {
 
     create: function()
     {
+        console.log("TEST");
     }
 
 };
