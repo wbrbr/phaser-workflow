@@ -8,42 +8,46 @@ var gulp = require('gulp'),
     del = require('del'),
     git = require('gulp-git'),
     minimist = require('minimist'),
+    changed = require('gulp-changed'),
     config = require('./config.json');
 
 var reload = browserSync.reload;
 
-var args = minimist(process.argv.slice(2),{
-    string: 'message',
-    default: 'Initial commit'
-});
+var opts = {
+    string: 'message'
+};
+
+var args = minimist(process.argv.slice(2),opts);
+
+console.log(args.message);
 
 gulp.task('uglify',function(){
-    gulp.src(config.srcDir + '*.js').pipe(concat(config.gameFile)).pipe(uglify()).pipe(gulp.dest(config.buildDir));
+    gulp.src(config.srcDir + '*.js').pipe(changed(config.buildDir)).pipe(concat(config.gameFile)).pipe(uglify()).pipe(gulp.dest(config.buildDir));
 });
 
 gulp.task('imagemin',function(){
-    gulp.src(config.srcDir + config.assetsDir + '*.{png,jpg,gif}').pipe(imagemin()).pipe(gulp.dest(config.buildDir + config.assetsDir));
+    gulp.src(config.srcDir + config.assetsDir + '*.{png,jpg,gif}').pipe(changed(config.buildDir + config.assetsDir)).pipe(imagemin()).pipe(gulp.dest(config.buildDir + config.assetsDir));
 });
 
 gulp.task('clean',function(){
-    del(['build/*']);
+    del([config.buildDir + '*']);
 });
 gulp.task('copy',function(){
-    gulp.src('./src/**').pipe(gulp.dest('./build/'));
+    gulp.src(config.srcDir + '*').pipe(changed(config.buildDir)).pipe(gulp.dest(config.buildDir));
 });
 
 gulp.task('compress',function(){
-    gulp.src('./build/**').pipe(zip('game.zip')).pipe(gulp.dest('./build')).pipe(exit());
+    gulp.src(config.buildDir + '**').pipe(zip('game.zip')).pipe(gulp.dest(config.buildDir)).pipe(exit());
 });
 
 gulp.task('deploy',function(){
-    gulp.src('./src/*').pipe(git.add()).pipe(git.commit(args.message));
+    gulp.src(config.srcDir + '*').pipe(git.add()).pipe(git.commit(args.message));
 });
 
 gulp.task('serve',function(){
     browserSync({
         server: {
-            baseDir: 'src',
+            baseDir: config.srcDir,
         },
         port: 8000
     });
@@ -52,7 +56,7 @@ gulp.task('serve',function(){
 gulp.task('production',function(){
     browserSync({
         server: {
-            baseDir: 'build'
+            baseDir: config.buildDir 
         },
         port: 8000
     });
