@@ -11,20 +11,8 @@
     "type": "git",
     "url": "https://github.com/nounoursheureux/phaser-workflow"
   },
-  "devDependencies": {
-    "browser-sync": "^1.9.1",
-    "del": "^1.1.1",
-    "gulp": "^3.8.10",
-    "gulp-changed": "^1.1.1",
-    "gulp-concat": "^2.4.3",
-    "gulp-copy": "0.0.2",
-    "gulp-exit": "0.0.2",
-    "gulp-git": "^0.5.6",
-    "gulp-imagemin": "^2.1.0",
-    "gulp-serve": "^0.3.0",
-    "gulp-uglify": "^1.1.0",
-    "gulp-vinyl-zip": "0.0.5",
-    "gulp-zip": "^2.0.2",
-    "minimist": "^1.1.0"
+  "dependencies": {
+    "browser-sync": "latest",
+    "uglify-js": "latest"
   }
 }
