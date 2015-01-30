@@ -16,7 +16,3 @@ This repo contains a gulpfile.js and some ready-to-use source files. Here is the
  * `gulp production`: run a live-reloading server inside the build directory
  * **`gulp build`**: Run the clean,copy,compress,uglify,imagemin tasks     
  The `index.html` file automatically fetchs the Phaser lib so you don't have to do it. It will also look for a `style.css` file (included). You can change the build and source directories in the *config.json* file.      
-
-## License
-
-All the code is under the WTFPL (see the LICENSE file).
