@@ -6,20 +6,10 @@ var gulp = require('gulp'),
     zip = require('gulp-zip'),
     exit = require('gulp-exit'),
     del = require('del'),
-    git = require('gulp-git'),
-    minimist = require('minimist'),
     changed = require('gulp-changed'),
     config = require('./config.json');
 
 var reload = browserSync.reload;
-
-var opts = {
-    string: 'message'
-};
-
-var args = minimist(process.argv.slice(2),opts);
-
-console.log(args.message);
 
 gulp.task('uglify',function(){
     gulp.src(config.srcDir + '*.js').pipe(changed(config.buildDir)).pipe(concat(config.gameFile)).pipe(uglify()).pipe(gulp.dest(config.buildDir));
@@ -38,10 +28,6 @@ gulp.task('copy',function(){
 
 gulp.task('compress',function(){
     gulp.src(config.buildDir + '**').pipe(zip('game.zip')).pipe(gulp.dest(config.buildDir)).pipe(exit());
-});
-
-gulp.task('deploy',function(){
-    gulp.src(config.srcDir + '*').pipe(git.add()).pipe(git.commit(args.message));
 });
 
 gulp.task('serve',function(){
