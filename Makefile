@@ -7,6 +7,7 @@ all: build
 
 init:
 	if [ ! -d "$(BUILDDIR)" ]; then mkdir $(BUILDDIR); fi
+
 copy: 
 	cp -r $(SRCDIR)/* $(BUILDDIR)
 
@@ -24,8 +25,7 @@ deploy:
 ifeq ($(MSG), )
 	@echo "Usage: make deploy MSG=<commit name>"
 else
-	git $(GITOPTS) add .
-	git $(GITOPTS) commit -m "$(MSG)"
+	cd $(SRCDIR) && git $(GITOPTS) add . && git $(GITOPTS) commit -m "$(MSG)"
 endif
 
 serve:
