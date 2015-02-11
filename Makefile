@@ -5,8 +5,11 @@ NODEDIR=node_modules/.bin
 
 all: build
 
-init:
+init_build:
 	if [ ! -d "$(BUILDDIR)" ]; then mkdir $(BUILDDIR); fi
+
+fetch_modules:
+	if [ ! -d "$(NODEDIR)" ]; then npm install; fi
 
 copy: 
 	cp -r $(SRCDIR)/* $(BUILDDIR)
@@ -25,13 +28,14 @@ deploy:
 ifeq ($(MSG), )
 	@echo "Usage: make deploy MSG=<commit name>"
 else
-	cd $(SRCDIR) && git $(GITOPTS) add . && git $(GITOPTS) commit -m "$(MSG)"
+	git $(GITOPTS) add .
+	git $(GITOPTS) commit -m "$(MSG)"
 endif
 
-serve:
+serve: fetch_modules
 	./$(NODEDIR)/browser-sync start --server $(SRCDIR) --files "$(SRCDIR)/*" --port 8000
 
-production:
+production: init_build build fetch_modules
 	./$(NODEDIR)/browser-sync start --server $(BUILDDIR) --files "$(SRCDIR)/*" --port 8000
 
 
