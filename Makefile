@@ -7,6 +7,8 @@ all: build
 
 init_build:
 	if [ ! -d "$(BUILDDIR)" ]; then mkdir $(BUILDDIR); fi
+	if [ "$$(command -v bower)" == "" ]; then sudo npm install -g bower; fi
+	if [ ! -d "src/lib" ]; then bower install; fi
 
 fetch_modules:
 	if [ ! -d "$(NODEDIR)" ]; then npm install; fi
@@ -39,4 +41,4 @@ production: init_build build fetch_modules
 	./$(NODEDIR)/browser-sync start --server $(BUILDDIR) --files "$(SRCDIR)/*" --port 8000
 
 
-build: init clean copy uglify compress
+build: init_build clean copy uglify compress

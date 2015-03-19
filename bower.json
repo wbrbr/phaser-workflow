@@ -1,0 +1,24 @@
+{
+  "name": "phaser-workflow",
+  "version": "0.0.1",
+  "homepage": "https://github.com/nounoursheureux/phaser-workflow",
+  "authors": [
+    "Nounours Heureux <schtroumps31@gmail.com>"
+  ],
+  "description": "Some scripts for Phaser",
+  "main": "Makefile",
+  "keywords": [
+    "phaser",
+    "workflow",
+    "makefile"
+  ],
+  "license": "WTFPL",
+  "ignore": [
+    ".git",
+    "node_modules",
+    "src/lib"
+  ],
+  "dependencies": {
+      "phaser-build": null
+    }
+}
