@@ -2,7 +2,10 @@
 
 ## Installation
 
-Clone this repository, then run `npm install`. 
+Clone this repository, then run `npm install`. Install `bower` with:    
+```
+# npm install -g bower
+```
 
 ## Usage
 
